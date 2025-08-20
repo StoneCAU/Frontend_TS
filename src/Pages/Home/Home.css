@@ -1,0 +1,180 @@
+.Home-container {
+    width: 375px;
+    height: 896px;
+    /* 앱 화면 높이로 고정 */
+    margin: 0 auto;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: rgb(134, 134, 134)
+        /*#141924;*/
+}
+
+.scroll-area {
+    flex: 1;
+    /* 남은 공간 채우기 */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    /* 모바일 부드러운 스크롤 */
+    scrollbar-width: none;
+}
+
+
+.section {
+    width: 335px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    padding: 0px;
+}
+
+.title {
+    height: 34px;
+    margin-top: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*왼오 정렬*/
+    padding-right: 20.5px;
+}
+
+.appTitle {
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    height: 32px;
+    margin-left: 20.5px;
+}
+
+.searchIcon {
+    color: rgb(197, 196, 196);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.chip {
+    height: 34px;
+    width: 335px;
+}
+
+.chip-button {
+    display: flex;
+    gap: 6px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.chip-button button {
+    border: none;
+    background: #141924;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 100px;
+    border: 1px solid #404E6A;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.chip-button button.active {
+    background-color: #6F4ACD;
+}
+
+.chip-button button:focus {
+    outline: none;
+}
+
+
+.chip-carousel {
+    border: 3px solid rgb(0, 0, 0);
+    height: 197px;
+    border-radius: 12px;
+}
+
+.user-favorite {
+    border: 3px solid rgb(0, 0, 0);
+    height: 175px;
+}
+
+.user-favorite-chat {
+    border: 3px solid rgb(0, 0, 0);
+    height: 200px;
+}
+
+.well-read-novel {
+    border: 3px solid rgb(0, 0, 0);
+    height: 258px;
+}
+
+.new-userNote {
+    border: 3px solid black;
+    height: 292px;
+}
+
+/*캐릭터 챗 버튼을 눌렀을 때 나오는 섹션css*/
+.recommend-character-chat {
+    border: 3px solid rgb(0, 0, 0);
+    height: 197px;
+    border-radius: 12px;
+}
+
+.public-favorite-choice {
+    border: 3px solid black;
+    height: 287px;
+}
+
+.otherGenre {
+    border: 3px solid black;
+    height: 287px;
+}
+
+.All-chat {
+    border: 3px solid black;
+    height: 809px;
+}
+
+/*웹 소설 버튼을 눌렀을 때 나오는 섹션css*/
+.recommend-web-novel {
+    border: 3px solid rgb(0, 0, 0);
+    height: 197px;
+    border-radius: 12px;
+}
+
+.public-favorite-novel {
+    border: 3px solid black;
+    height: 258px;
+}
+
+.recommend-taste {
+    border: 3px solid black;
+    height: 258px;
+}
+
+.All-web-novel {
+    border: 3px solid black;
+    height: 384px;
+}
+
+/*유저 노트 버튼 눌렀을 때 나오는 섹션css*/
+.recommend-userNote {
+    border: 3px solid rgb(0, 0, 0);
+    height: 197px;
+    border-radius: 12px;
+}
+
+.genre-popular-note {
+    border: 3px solid black;
+    height: 292px;
+}
+
+.genre-romance {
+    border: 3px solid black;
+    height: 292px;
+}
+
+.all-user-note {
+    border: 3px solid black;
+    height: 584px;
+}

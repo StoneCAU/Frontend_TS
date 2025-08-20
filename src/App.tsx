@@ -1,17 +1,16 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
+import Home from './Pages/Home/Home';
 
+const App: React.FC = () => {
   return (
-    <>
-      <div>
+    <Router>
+      <Routes>
+        <Route path="/Home" element={<Home />} />
+      </Routes>
+    </Router>
+  );
+};
 
-      </div>
-      <h1>Vite + React</h1>
-    </>
-  )
-}
-
-export default App
+export default App;
