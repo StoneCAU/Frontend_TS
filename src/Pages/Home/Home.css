@@ -193,7 +193,6 @@
    추가: 배너 / 카드 / 유저리스트 UI 
 -------------------------------- */
 
-/* 배너 */
 .banner {
     position: relative;
     height: 160px;
@@ -248,7 +247,6 @@
 .title-row {
     display: flex;
     align-items: center;
-    /* 세로 가운데 정렬 */
 }
 
 .section-title {
@@ -277,6 +275,7 @@
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    margin-top: 12px;
 }
 
 .avatar {
@@ -309,7 +308,7 @@
     background: #6F4ACD;
 }
 
-/* 카드 그리드 */
+/* 카드(기본 그리드) */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -352,52 +351,235 @@
 }
 
 /* ===============================
-   가로 스크롤 카드 레이아웃
+   [소설] 수평 스크롤 & 카드 (섹션 전용)
 ================================= */
-
-/* 가로 스크롤 컨테이너 */
-/* 수평 스크롤 영역 */
-.hscroll {
+.hscroll-novels {
+    margin-top: 12px;
     display: flex;
     gap: 12px;
     overflow-x: auto;
-    /* 가로 스크롤 활성화 */
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    /* iOS에서 부드럽게 */
     scroll-snap-type: none;
-    /* 스냅(한 칸씩 고정) 제거 */
-
-    /* 스크롤바 숨기기 */
+    /* 중간 멈춤 허용 */
+    padding-bottom: 4px;
     scrollbar-width: none;
-    /* Firefox */
+    /* Firefox 스크롤바 숨김 */
+}
+
+.hscroll-novels::-webkit-scrollbar {
+    display: none;
+}
+
+/* WebKit 스크롤바 숨김 */
+
+.novel-card {
+    flex: 0 0 auto;
+    width: 164px;
+    /* 소설 카드 너비 */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.novel-card-image {
+    width: 100%;
+    height: 250px;
+    /* 소설 카드 이미지 높이 */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.novel-card-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.novel-card-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.novel-card-author {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* ===============================
+   [유저노트] 수평 스크롤 & 카드 (섹션 전용)
+================================= */
+.hscroll-notes {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    /* 노트는 간격 다르게 */
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: none;
+    /* 중간 멈춤 허용 */
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+.hscroll-notes::-webkit-scrollbar {
+    display: none;
+}
+
+.note-card {
+    flex: 0 0 auto;
+    width: 156px;
+    /* 노트 카드 너비 */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 60px;
+    /* 필요하면 경계/배경 커스터마이즈
+    border: 1px solid #2a3246;
+    border-radius: 10px;
+    padding: 6px;
+    */
+}
+
+.note-card-image {
+    width: 100%;
+    height: 110px;
+    /* 노트 카드 이미지 높이 */
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.note-card-title {
+    font-weight: normal;
+    font-size: 13px;
+    /* 소설보다 살짝 작게 */
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.note-card-desc {
+    font-size: 11px;
+    color: #9aa8c1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.note-card-author {
+    font-size: 11px;
+    color: #6b7a92;
+    margin: 0;
+}
+
+/* ===== 캐릭터 메시지 패널 ===== */
+.top-user {
+    cursor: pointer;
+}
+
+.top-user.active .avatar {
+    outline: 2px solid #6F4ACD;
+    outline-offset: 2px;
+}
+
+.character-panel {
+    margin-top: 14px;
+    padding: 14px;
+    background: #283143;
+    /* 진한 남보라톤 */
+    border: 1px solid #2a3350;
+    border-radius: 16px;
+}
+
+.character-name {
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* 말풍선 */
+.speech-bubble {
+    display: inline-block;
+    max-width: 100%;
+    color: #d6def2;
+    background: #3e4e6f;
+    /* 스샷 느낌의 블루그레이 */
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+/* 태그 */
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tag-chip {
+    display: inline-block;
+    padding: 6px 4px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #DFE1EA;
+    background: #454A55;
+    border: 1px solid #394665;
+}
+
+/*위프 유저들이 가장 좋아한 캐릭터 수평 스크롤*/
+/* [공통] 수평 스크롤 */
+.hscroll {
+    display: flex;
+    gap: 12px;
+    /* 카드 사이 간격 */
+    overflow-x: auto;
+    /* 가로 스크롤 */
+    padding-bottom: 8px;
+    /* 스크롤 영역과 밑부분 여백 */
+    -webkit-overflow-scrolling: touch;
+    /* iOS 부드러운 스크롤 */
 }
 
 .hscroll::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari, Edge */
+    /* 스크롤바 숨기기 */
 }
 
-
-.hscroll::-webkit-scrollbar-thumb {
-    background: #404E6A;
-    border-radius: 99px;
-}
-
-.hscroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-/* 가로 카드 */
-.card--h {
+/* 아바타 카드 */
+.top-user {
     flex: 0 0 auto;
-    /* 가로로 이어서 배치 */
-    width: 156px;
-    /* 카드 고정 너비 */
-    scroll-snap-align: start;
+    /* 줄바꿈 없이 고정 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
 }
 
-.card--h .card-image {
-    /*height: 120px;*/
-    /* 세로 높이는 상황에 맞게 조정 */
+.top-user .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 6px;
+}
+
+.avatar-name {
+    font-size: 13px;
+    color: white;
 }
