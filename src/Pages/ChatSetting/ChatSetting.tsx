@@ -117,7 +117,7 @@ const ChatSetting: React.FC = () => {
                                     불러오기
                                 </button>
                             </div>
-
+                            {/*
                             <InputWithCounter
                                 id="user-note"
                                 value={userNote}
@@ -127,6 +127,7 @@ const ChatSetting: React.FC = () => {
                                 isTextarea
                                 rows={6}
                             />
+                            */}
                         </div>
 
                         <div style={{ height: 8 }} />
