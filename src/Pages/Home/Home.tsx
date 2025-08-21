@@ -55,6 +55,7 @@ const HOME_NOVELS: CardItem[] = [
     { id: 'n2', image: 'https://picsum.photos/seed/n2/400/300', title: '달의 주인', description: '폐허 위의 왕국', author: '유화' },
     { id: 'n3', image: 'https://picsum.photos/seed/n3/400/300', title: '바람의 길', description: '길 위에서 만난 동료들', author: '고래' },
     { id: 'n4', image: 'https://picsum.photos/seed/n4/400/300', title: '유령 작가', description: '사라진 문장을 찾아서', author: '미나' },
+    { id: 'n5', image: 'https://picsum.photos/seed/m4/400/300', title: '북 노트', description: '올해의 문장들', author: '진' },
 ];
 
 const HOME_NOTES: CardItem[] = [
@@ -62,6 +63,7 @@ const HOME_NOTES: CardItem[] = [
     { id: 'm2', image: 'https://picsum.photos/seed/m2/400/300', title: 'AI 실험노트', description: '프롬프트 실험 기록', author: '솔' },
     { id: 'm3', image: 'https://picsum.photos/seed/m3/400/300', title: '러닝 로그', description: '10K 페이스 관리', author: '민' },
     { id: 'm4', image: 'https://picsum.photos/seed/m4/400/300', title: '북 노트', description: '올해의 문장들', author: '진' },
+    { id: 'm5', image: 'https://picsum.photos/seed/m4/400/300', title: '북 노트', description: '올해의 문장들', author: '진' },
 ];
 
 const Home: React.FC = () => {
@@ -204,7 +206,7 @@ const Home: React.FC = () => {
                             <h2 className="section-title accent1">좋아하는 사람들이 많이 본 소설</h2>
                         </div>
                         <div className="hscroll-novels">
-                            {HOME_NOVELS.slice(0, 4).map(renderNovelCard)}
+                            {HOME_NOVELS.slice(0, 5).map(renderNovelCard)}
                         </div>
                     </section>
 
@@ -212,7 +214,7 @@ const Home: React.FC = () => {
                     <section className="section">
                         <h2 className="section-title">새로운 세계로 떠나는 유저노트</h2>
                         <div className="hscroll-notes">
-                            {HOME_NOTES.slice(0, 4).map(renderNoteCard)}
+                            {HOME_NOTES.slice(0, 5).map(renderNoteCard)}
                         </div>
                     </section>
                 </div>

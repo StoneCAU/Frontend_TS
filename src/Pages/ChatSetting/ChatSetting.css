@@ -1,0 +1,413 @@
+/* 바깥 미리보기 배경(중앙 정렬) */
+.cs-root {
+    min-height: 100vh;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cs-app {
+    width: 375px;
+    height: 896px;
+    background: #141924;
+    color: #e5e7eb;
+    border: 3px solid #000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cs-titlebar {
+    height: 34px;
+    margin-top: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20.5px;
+}
+
+.cs-titlerow {
+    width: 335px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.cs-backbtn {
+    padding: 8px;
+    margin-left: -8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.cs-backicon {
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+}
+
+.cs-title {
+    margin-left: 12px;
+    height: 32px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.cs-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.cs-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.cs-section {
+    width: 335px;
+    margin: 0 auto 24px;
+    padding: 0;
+}
+
+.cs-field {
+    margin-bottom: 24px;
+}
+
+.cs-field:last-child {
+    margin-bottom: 0;
+}
+
+.cs-field-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.cs-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+    margin-top: 12px;
+}
+
+.cs-help {
+    margin-top: 2px;
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.cs-select-wrap {
+    position: relative;
+}
+
+.cs-select {
+    width: 100%;
+    background: #283143;
+    color: #e5e7eb;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+    border-radius: 6px;
+    padding: 12px 40px 12px 12px;
+    appearance: none;
+    outline: none;
+}
+
+.cs-select:focus {
+    border-color: #6F4ACD;
+    box-shadow: 0 0 0 2px rgba(111, 74, 205, 0.4);
+}
+
+.cs-select-caret {
+    position: absolute;
+    right: 12px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    color: #9ca3af;
+    pointer-events: none;
+}
+
+.cs-btn {
+    margin-top: 40px;
+    background: #404D68;
+    color: #fff;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.cs-btn:hover {
+    background: #475569;
+}
+
+.cs-footer {
+    padding: 16px;
+    padding-top: 12px;
+}
+
+.cs-primary {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #6F4ACD;
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+.cs-primary:hover {
+    background: #5c3bb4;
+}
+
+/* ====== InputWithCounter / RadioGroup 전용 스타일 ======
+   (Tailwind를 제거하려면 아래 스타일이 필요합니다)
+*/
+
+/* InputWithCounter */
+.cs-inputwrap {
+    position: relative;
+}
+
+.cs-input,
+.cs-textarea {
+    width: 310px !important;
+    background: #283143;
+    color: #e5e7eb;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+    border-radius: 6px;
+    padding: 12px;
+    outline: none;
+}
+
+.cs-textarea {
+    resize: none;
+}
+
+.cs-input:focus,
+.cs-textarea:focus {
+    border-color: #6F4ACD;
+    box-shadow: 0 0 0 2px rgba(111, 74, 205, 0.4);
+}
+
+.cs-counter {
+    margin-top: 6px;
+    text-align: right;
+    font-size: 12px;
+    color: #94a3b8;
+    padding-right: 4px;
+}
+
+/* RadioGroup */
+.cs-radiogroup {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.cs-radio {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.cs-radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cs-radio-visual {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #6b7280;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cs-radio-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: transparent;
+}
+
+.cs-radio input[type="radio"]:checked+.cs-radio-visual {
+    border-color: #6F4ACD;
+    background: #6F4ACD;
+}
+
+.cs-radio input[type="radio"]:checked+.cs-radio-visual .cs-radio-dot {
+    background: #ffffff;
+}
+
+.cs-radio-label {
+    margin-left: 8px;
+    color: #e5e7eb;
+    font-size: 12px;
+}
+
+/* =========================
+   PersonaDropdown (커스텀)
+========================= */
+.cs-dd {
+    position: relative;
+}
+
+.cs-dd-trigger {
+    width: 100%;
+    background: #283143;
+    /* slate-800 */
+    color: #e5e7eb;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+    border-radius: 6px;
+    padding: 12px 36px 12px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    outline: none;
+}
+
+.cs-dd-trigger:hover {
+    border-color: #6F4ACD;
+}
+
+.cs-dd-trigger.is-open {
+    border-color: #6F4ACD;
+    box-shadow: 0 0 0 2px rgba(111, 74, 205, 0.35);
+}
+
+.cs-dd-value {
+    font-size: 14px;
+}
+
+.cs-dd-value.is-placeholder {
+    color: #9ca3af;
+}
+
+.cs-dd-caret {
+    color: #9ca3af;
+    margin-left: 12px;
+}
+
+.cs-dd-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 8px);
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    padding: 6px;
+    z-index: 50;
+    max-height: 260px;
+    overflow: auto;
+}
+
+.cs-dd-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    color: #e5e7eb;
+}
+
+.cs-dd-item:hover {
+    background: rgba(99, 102, 241, 0.12);
+}
+
+.cs-dd-item.is-active {
+    background: rgba(111, 74, 205, 0.18);
+    border: 1px solid rgba(111, 74, 205, 0.5);
+}
+
+.cs-dd-item-label {
+    font-size: 14px;
+}
+
+.cs-dd-check {
+    color: #c7d2fe;
+}
+
+.cs-dd-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cs-dd-menu::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 6px;
+}
+
+.cs-dd-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: transparent;
+    color: #e5e7eb;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.cs-dd-input::placeholder {
+    color: #9ca3af;
+}
+
+/* === PersonaDropdown: 입력 모드여도 트리거 박스 크기 고정 === */
+
+/* 트리거 박스 높이/패딩을 항상 동일하게 유지 */
+.cs-dd>.cs-dd-trigger,
+.cs-dd>.cs-dd-trigger.is-open {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 36px 12px 12px !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.cs-dd>.cs-dd-trigger.is-open .cs-dd-input {
+    all: unset;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    line-height: 1 !important;
+    font-size: 14px !important;
+    color: #e5e7eb !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.cs-dd>.cs-dd-trigger .cs-dd-caret {
+    margin-left: 12px !important;
+    flex: 0 0 auto !important;
+}
+
+.cs-dd .cs-dd-value {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
