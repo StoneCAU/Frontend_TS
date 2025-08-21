@@ -5,6 +5,7 @@ import { InputWithCounter } from '../../components/InputWithCounter';
 import { RadioGroup } from '../../components/RadioGroup';
 import { ArrowLeftIcon } from '../../components/icons/leftArrow';
 import PersonaDropdown from '../../components/PersonaDropdown';
+import BottomSheet from '../../components/BottomSheet';
 
 const GENDER_OPTIONS = [
     { id: 'male', label: '남성' },
@@ -22,6 +23,7 @@ const ChatSetting: React.FC = () => {
     const [introduction, setIntroduction] = useState('');
     const [userNote, setUserNote] = useState('');
 
+    const [sheetOpen, setSheetOpen] = useState(false);
     // 최종 사용할 페르소나
     const effectivePersona = personaChoice === 'custom' ? personaText : personaChoice;
 
@@ -38,7 +40,7 @@ const ChatSetting: React.FC = () => {
         <div className="cs-root">
             {/* 앱 프레임 (Home과 동일 규격) */}
             <div className="cs-app">
-                {/* 헤더: Home .title 규격과 동일 */}
+                {/* 헤더 */}
                 <header className="cs-titlebar">
                     <div className="cs-titlerow">
                         <button className="cs-backbtn" aria-label="뒤로가기">
@@ -54,8 +56,6 @@ const ChatSetting: React.FC = () => {
                         {/* 페르소나 */}
                         <div className="cs-field">
                             <label htmlFor="persona" className="cs-label">페르소나</label>
-
-                            {/* ✅ '직접 입력' 선택 시, 트리거가 즉시 input으로 변신 */}
                             <PersonaDropdown
                                 id="persona"
                                 value={personaChoice}
@@ -63,7 +63,7 @@ const ChatSetting: React.FC = () => {
                                 options={[
                                     { id: '백도하', label: '백도하' },
                                     { id: '소유현', label: '소유현' },
-                                    { id: 'custom', label: '직접 입력' }, // ← 꼭 'custom' id 사용
+                                    { id: 'custom', label: '직접 입력' },
                                 ]}
                                 placeholder="페르소나를 선택하세요"
                                 customId="custom"
@@ -113,7 +113,9 @@ const ChatSetting: React.FC = () => {
                                     <h2 className="cs-label">유저노트</h2>
                                     <p className="cs-help">유저노트를 이용해서<br /> 더 다양한 대화를 나눌 수 있어요!</p>
                                 </div>
-                                <button className="cs-btn" type="button">불러오기</button>
+                                <button className="cs-btn" type="button" onClick={() => setSheetOpen(true)}>
+                                    불러오기
+                                </button>
                             </div>
 
                             <InputWithCounter
@@ -142,6 +144,21 @@ const ChatSetting: React.FC = () => {
                         대화하기
                     </button>
                 </footer>
+
+                {/* ✅ 바텀시트: 앱 프레임 내부에서 하단 슬라이드 */}
+                <BottomSheet open={sheetOpen} onClose={() => setSheetOpen(false)} title="유저노트">
+                    <div className="sheet-card">
+                        <div className="sheet-icon" aria-hidden>🗒️</div>
+                        <div className="sheet-head">저장한 유저노트가 없어요</div>
+                        <ul className="sheet-bullets">
+                            <li>유저노트를 적용하면 새로운 세계관에서 대화할 수 있어요</li>
+                            <li>인기 유저노트를 둘러보고 마음에 드는 유저노트를 적용해보세요</li>
+                        </ul>
+                        <button className="sheet-cta" type="button">
+                            유저노트 둘러보기
+                        </button>
+                    </div>
+                </BottomSheet>
             </div>
         </div>
     );
