@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Home.css';
-import { SearchIcon } from '../../components/icons/SearchIcon';
+import { SearchIcon } from '../../components/icons';
 import NavBar from '../../components/NavBar';
 
 type CardItem = { id: string; image: string; title: string; description: string; author: string };

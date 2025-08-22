@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ChatSetting.css';
 import { InputWithCounter } from '../../components/ChatSettingcomponents/InputWithCounter';
 import { RadioGroup } from '../../components/ChatSettingcomponents/RadioGroup';
-import { ArrowLeftIcon } from '../../components/icons/leftArrow';
+import { ArrowLeftIcon } from '../../components/icons';
 import PersonaDropdown from '../../components/ChatSettingcomponents/PersonaDropdown';
 import BottomSheet from '../../components/ChatSettingcomponents/BottomSheet';
 
