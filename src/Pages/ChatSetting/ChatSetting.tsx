@@ -1,11 +1,10 @@
-// src/pages/ChatSetting.tsx
 import React, { useState } from 'react';
 import './ChatSetting.css';
-import { InputWithCounter } from '../../components/InputWithCounter';
-import { RadioGroup } from '../../components/RadioGroup';
+import { InputWithCounter } from '../../components/ChatSettingcomponents/InputWithCounter';
+import { RadioGroup } from '../../components/ChatSettingcomponents/RadioGroup';
 import { ArrowLeftIcon } from '../../components/icons/leftArrow';
-import PersonaDropdown from '../../components/PersonaDropdown';
-import BottomSheet from '../../components/BottomSheet';
+import PersonaDropdown from '../../components/ChatSettingcomponents/PersonaDropdown';
+import BottomSheet from '../../components/ChatSettingcomponents/BottomSheet';
 
 const GENDER_OPTIONS = [
     { id: 'male', label: '남성' },
@@ -14,7 +13,6 @@ const GENDER_OPTIONS = [
 ];
 
 const ChatSetting: React.FC = () => {
-    // ✅ 드롭다운에서 고른 값(백도하/소유현/custom)과 커스텀 텍스트를 분리 관리
     const [personaChoice, setPersonaChoice] = useState<string>('');
     const [personaText, setPersonaText] = useState<string>('');
 
@@ -24,7 +22,6 @@ const ChatSetting: React.FC = () => {
     const [userNote, setUserNote] = useState('');
 
     const [sheetOpen, setSheetOpen] = useState(false);
-    // 최종 사용할 페르소나
     const effectivePersona = personaChoice === 'custom' ? personaText : personaChoice;
 
     const handleSubmit = () => {
@@ -32,13 +29,11 @@ const ChatSetting: React.FC = () => {
             alert('페르소나를 입력해주세요.');
             return;
         }
-        // TODO: 서버 전송/상태 저장 등 처리
         console.log('최종 페르소나:', effectivePersona);
     };
 
     return (
         <div className="cs-root">
-            {/* 앱 프레임 (Home과 동일 규격) */}
             <div className="cs-app">
                 {/* 헤더 */}
                 <header className="cs-titlebar">
@@ -50,7 +45,6 @@ const ChatSetting: React.FC = () => {
                     </div>
                 </header>
 
-                {/* 본문 스크롤 영역 */}
                 <main className="cs-scroll">
                     <div className="cs-section">
                         {/* 페르소나 */}
@@ -146,7 +140,6 @@ const ChatSetting: React.FC = () => {
                     </button>
                 </footer>
 
-                {/* ✅ 바텀시트: 앱 프레임 내부에서 하단 슬라이드 */}
                 <BottomSheet open={sheetOpen} onClose={() => setSheetOpen(false)} title="유저노트">
                     <div className="sheet-card">
                         <div className="sheet-icon" aria-hidden>🗒️</div>
