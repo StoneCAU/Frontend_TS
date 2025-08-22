@@ -101,6 +101,7 @@ const ChatSetting: React.FC = () => {
                         />
 
                         {/* 유저노트 */}
+                        <hr className="border-t border-[#283143] my-4" />
                         <div className="cs-field">
                             <div className="cs-field-head">
                                 <div>

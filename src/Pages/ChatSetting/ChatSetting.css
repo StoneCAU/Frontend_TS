@@ -57,6 +57,7 @@
 }
 
 .cs-scroll {
+    margin-top: 20px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
@@ -75,7 +76,7 @@
 }
 
 .cs-field {
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
 
 .cs-field:last-child {
