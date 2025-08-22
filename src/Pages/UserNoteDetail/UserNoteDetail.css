@@ -1,0 +1,217 @@
+/* 바깥: 화면 중앙 정렬 배경 */
+.und-root {
+    min-height: 100vh;
+    background: #0F1014;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 앱 프레임 (375x896) */
+.und-app {
+    width: 375px;
+    height: 896px;
+    background: #1C1C23;
+    color: #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 헤더 */
+.und-header {
+    flex-shrink: 0;
+    background: rgba(28, 28, 35, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.und-iconbtn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.und-icon {
+    width: 24px;
+    height: 24px;
+    color: #e5e7eb;
+}
+
+/* 본문 스크롤 */
+.und-main {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 16px;
+}
+
+/* 배너 이미지 */
+.und-banner {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 섹션 컨테이너: 폭 335px */
+.und-sectionbox {
+    width: 335px;
+    margin: 0 auto;
+    padding: 16px 0;
+}
+
+.und-section {
+    margin-bottom: 24px;
+}
+
+/* 타이틀/서브타이틀/본문 */
+.und-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 8px 0;
+}
+
+.und-subtitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 12px 0;
+}
+
+.und-desc {
+    color: #d1d5db;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+/* 태그 행 */
+.und-tagrow {
+    display: flex;
+    gap: 8px;
+}
+
+/* 코드 영역(회색 박스) */
+.und-code {
+    background: #313244;
+    color: #cbd5e1;
+    padding: 16px;
+    border-radius: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.und-code-strong {
+    color: #fff;
+    font-weight: 800;
+    margin: 8px 0;
+}
+
+/* 구분선 */
+.und-divider {
+    border-top: 1px solid rgba(107, 114, 128, 0.5);
+    margin: 8px 0;
+}
+
+/* 행 헬퍼 */
+.und-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.und-row.between {
+    justify-content: space-between;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.und-chevron {
+    width: 20px;
+    height: 20px;
+    color: #9ca3af;
+}
+
+/* 적용 예시 */
+.und-example {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.und-avatar {
+    width: 40px;
+    height: 40px;
+    background: #64748b;
+    border-radius: 9999px;
+    flex-shrink: 0;
+}
+
+.und-example-body {
+    flex: 1;
+}
+
+.und-author {
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.und-handle {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.und-follow {
+    border: none;
+    background: #8A4DFF;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.und-example-text {
+    margin: 8px 0 0 0;
+    color: #d1d5db;
+    font-size: 15px;
+}
+
+.und-date {
+    margin: 6px 0 0 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* 댓글 영역 */
+.und-comments {
+    display: grid;
+    gap: 24px;
+}
+
+/* 더보기 버튼 */
+.und-more {
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
+    padding: 12px 0;
+    background: transparent;
+    border: 1px solid #374151;
+    color: #d1d5db;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.und-more:hover {
+    background: #1f2937;
+}
