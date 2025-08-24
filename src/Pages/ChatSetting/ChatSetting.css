@@ -174,9 +174,7 @@
     background: #5c3bb4;
 }
 
-/* ====== InputWithCounter / RadioGroup 전용 스타일 ======
-   (Tailwind를 제거하려면 아래 스타일이 필요합니다)
-*/
+/* ====== InputWithCounter / RadioGroup 전용 스타일 ======*/
 
 /* InputWithCounter */
 .cs-inputwrap {
