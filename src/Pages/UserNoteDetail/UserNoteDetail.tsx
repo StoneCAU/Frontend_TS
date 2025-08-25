@@ -10,6 +10,7 @@ import Tag from '../../components/UserNoteDetailcomponents/Tag';
 import Comment from '../../components/UserNoteDetailcomponents/Comment';
 import RelatedCard from '../../components/UserNoteDetailcomponents/RelatedCard';
 import UserNoteDetailFooter from '../../components/UserNoteDetailcomponents/UserNoteDetailFooter';
+import hidra from "../../components/UserNoteDetailcomponents/hidra.jpg";
 
 const UserNoteDetail: React.FC = () => {
     const comments = [
@@ -18,36 +19,29 @@ const UserNoteDetail: React.FC = () => {
         { id: 3, isBest: true, author: '순애킹', time: '1일 전', content: '낮은 확률로 어벤져스 튀어나오는 거 왜 이렇게 웃기고 쫄리죠ㅋㅋㅋ 암튼 재밌음', likes: 10, replies: 0, avatarUrl: 'https://i.pravatar.cc/40?img=3' },
     ];
 
-    /** 아코디언 상태 & 패널 높이(잘림 방지) */
     const [exOpen, setExOpen] = useState(false);
     const [panelMax, setPanelMax] = useState<string>('0px');
     const panelRef = useRef<HTMLDivElement | null>(null);
 
-    /** 가로 슬라이드 드래그 */
     const scrollerRef = useRef<HTMLDivElement | null>(null);
     const isDown = useRef(false);
     const startX = useRef(0);
     const startScrollLeft = useRef(0);
 
-    /** 패널 높이 재계산 */
     const recalc = () => {
         if (!panelRef.current) return;
-        // 콘텐츠 실제 높이를 읽어 max-height로 지정
         const h = panelRef.current.scrollHeight;
         setPanelMax(`${h}px`);
     };
 
-    /** 열림/닫힘 시 높이 반영 */
     useEffect(() => {
         if (exOpen) {
-            // 다음 프레임에 레이아웃 안정 후 계산
             requestAnimationFrame(recalc);
         } else {
             setPanelMax('0px');
         }
     }, [exOpen]);
 
-    /** 열려 있는 동안엔 크기 변화를 계속 추적 (폰트/리사이즈/내부 변화 대응) */
     useEffect(() => {
         if (!exOpen || !panelRef.current) return;
         const ro = new ResizeObserver(() => recalc());
@@ -59,7 +53,6 @@ const UserNoteDetail: React.FC = () => {
         };
     }, [exOpen]);
 
-    /** 이미지 로딩 완료 후 다시 계산(있을 경우) */
     useEffect(() => {
         if (!exOpen || !panelRef.current) return;
         const imgs = panelRef.current.querySelectorAll('img');
@@ -79,7 +72,6 @@ const UserNoteDetail: React.FC = () => {
         });
     }, [exOpen]);
 
-    /** 드래그 스크롤 */
     useEffect(() => {
         const el = scrollerRef.current;
         if (!el) return;
@@ -113,9 +105,7 @@ const UserNoteDetail: React.FC = () => {
 
     return (
         <div className="und-root">
-            {/* 앱 프레임 375x896 */}
             <div className="und-app">
-                {/* 헤더 */}
                 <header className="und-header">
                     <button className="und-iconbtn" aria-label="뒤로가기">
                         <ArrowLeftIcon className="und-icon" />
@@ -125,19 +115,18 @@ const UserNoteDetail: React.FC = () => {
                     </button>
                 </header>
 
-                {/* 스크롤 본문 */}
                 <main className="und-main">
-                    {/* 배너 */}
-                    <img
-                        src="https://i.imgur.com/uR1k33i.png"
-                        alt="Agents of Hydra"
-                        className="und-banner"
-                    />
-
-                    {/* 섹션 컨테이너 (폭 335px 고정) */}
+                    <div className="relative">
+                        <img
+                            src={hidra}
+                            alt="Agents of Hydra"
+                            className="und-banner brightness-75 contrast-110"
+                        />
+                        {/* 이미지 위 어둡게/옅게 오버레이 */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-[#0F1420]/40 to-[#0F1420]/90 pointer-events-none" />
+                    </div>
                     <div className="und-sectionbox">
-                        {/* 타이틀 + 태그 */}
-                        <section className="und-section">
+                        <section className="und-section2">
                             <h1 className="und-title">하이드라 암호</h1>
                             <div className="und-tagrow">
                                 <Tag text="#세계관확장" />
@@ -145,7 +134,6 @@ const UserNoteDetail: React.FC = () => {
                             </div>
                         </section>
 
-                        {/* 유저노트 소개 */}
                         <section className="und-section">
                             <h2 className="und-subtitle">유저노트 소개</h2>
                             <p className="und-desc">
@@ -187,7 +175,7 @@ const UserNoteDetail: React.FC = () => {
                                 <div ref={scrollerRef} className="mt-3 overflow-x-auto no-scrollbar cursor-grab">
                                     <div className="flex gap-4 pr-2 mt-[15px]">
                                         <div className="p-[10px] w-[320px] mr-[15px] flex-shrink-0 rounded-[10px] border border-[#3A4254] bg-[#141924] p-5">
-                                            {/* 태그 */}
+
                                             <div className="mt-[10px] mb-3 flex justify-end">
                                                 <span className="w-[100px] h-[30px] flex items-center justify-center text-[13px] rounded-[8px] bg-[#6F4ACD] text-white">
                                                     헤일 하이드라
@@ -195,8 +183,6 @@ const UserNoteDetail: React.FC = () => {
 
                                             </div>
 
-
-                                            {/* 본문 내용 */}
                                             <p className="text-[14px] leading-[22px] text-[#9CA3AF] mb-4">
                                                 연습실 문을 열기 직전, 한서준의 귓가에 차현우의 목소리가 닿았다.
                                                 아주 작고 나지막한 속삭임이었지만, 그 소리는 그의 뇌리에 거대한 파동을
@@ -208,7 +194,6 @@ const UserNoteDetail: React.FC = () => {
                                                 것은 형언할 수 없는 안도감과 깊은 이해였다.
                                             </p>
 
-                                            {/* 아바타 + 닉네임 + 대사 */}
                                             <div className="flex items-center gap-2 mb-4">
                                                 <img
                                                     src="https://i.pravatar.cc/40?img=12"
@@ -221,7 +206,6 @@ const UserNoteDetail: React.FC = () => {
                                                 </div>
                                             </div>
 
-                                            {/* 후속 본문 */}
                                             <p className="text-[14px] leading-[22px] text-[#9CA3AF]">
                                                 바로 그때였다. 복도 끝에서 굉음과 함께 유리창이 박살 나는 소리가
                                                 들렸다. 먼지가 자욱하게 피어오르는 가운데, 붉고 푸른 방패를 든 거대한
@@ -231,14 +215,13 @@ const UserNoteDetail: React.FC = () => {
 
 
                                         <div className=" p-[10px] w-[320px] mr-[15px] flex-shrink-0 rounded-[10px] border border-[#3A4254] bg-[#141924] p-5">
-                                            {/* 태그 */}
+
                                             <div className="mt-[10px] mb-3 flex justify-end">
                                                 <span className="w-[100px] h-[30px] flex items-center justify-center text-[13px] rounded-[8px] bg-[#6F4ACD] text-white">
                                                     헤일 하이드라
                                                 </span>
                                             </div>
 
-                                            {/* 본문 */}
                                             <p className="text-[14px] leading-[22px] text-[#9CA3AF] mb-4">
                                                 비 내리는 옥상, 서늘한 바람 사이로 낮고 익숙한 목소리가 귓가를 스쳤다.
                                                 <strong>‘헤일 하이드라.’</strong>
@@ -246,7 +229,6 @@ const UserNoteDetail: React.FC = () => {
                                                 분노가 파도처럼 사라지고, 대신 정확한 목표와 절차만 머릿속에 남았다.
                                             </p>
 
-                                            {/* 아바타 + 닉네임 + 대사 */}
                                             <div className="flex items-center gap-2 mb-4">
                                                 <img src="https://i.pravatar.cc/40?img=19" alt="avatar" className="w-8 h-8 rounded-full" />
                                                 <div>
@@ -255,7 +237,6 @@ const UserNoteDetail: React.FC = () => {
                                                 </div>
                                             </div>
 
-                                            {/* 후속 본문 */}
                                             <p className="text-[14px] leading-[22px] text-[#9CA3AF]">
                                                 바로 그때, 하단 출입문이 강하게 밀렸다. 젖은 발자국이 계단을 찍어 올라왔다.
                                                 파란 방패의 각인이 번개를 받아 반짝였다—누군가, 올라오고 있었다.
@@ -264,14 +245,12 @@ const UserNoteDetail: React.FC = () => {
 
 
                                         <div className="p-[10px] w-[320px] flex-shrink-0 rounded-[10px] border border-[#3A4254] bg-[#141924] p-5">
-                                            {/* 태그 */}
                                             <div className="mt-[10px] mb-3 flex justify-end">
                                                 <span className="w-[100px] h-[30px] flex items-center justify-center text-[13px] rounded-[8px] bg-[#6F4ACD] text-white">
                                                     헤일 하이드라
                                                 </span>
                                             </div>
 
-                                            {/* 본문 */}
                                             <p className="text-[14px] leading-[22px] text-[#9CA3AF] mb-4">
                                                 공연 대기실의 소음이 점차 멀어졌다. 박라온은 악보를 덮고 고개를 들었다.
                                                 귓가에 스치듯 들린 한 마디—<strong>‘헤일 하이드라.’</strong>
@@ -279,7 +258,6 @@ const UserNoteDetail: React.FC = () => {
                                                 숨이 고르고, 의심이 사라지고, 단 하나의 확신만 남았다.
                                             </p>
 
-                                            {/* 아바타 + 닉네임 + 대사 */}
                                             <div className="flex items-center gap-2 mb-4">
                                                 <img src="https://i.pravatar.cc/40?img=15" alt="avatar" className="w-8 h-8 rounded-full" />
                                                 <div>
@@ -288,7 +266,6 @@ const UserNoteDetail: React.FC = () => {
                                                 </div>
                                             </div>
 
-                                            {/* 후속 본문 */}
                                             <p className="text-[14px] leading-[22px] text-[#9CA3AF]">
                                                 문틈 사이로 붉은 섬광이 번쩍였다. 금속이 긁히는 소리와 함께, 누군가의
                                                 그림자가 긴 복도를 가로질렀다. 그는 자리에서 조용히 일어나 문고리를 감쌌다.

@@ -7,7 +7,6 @@
     justify-content: center;
 }
 
-/* 앱 프레임 (375x896) */
 .und-app {
     width: 375px;
     height: 896px;
@@ -18,10 +17,9 @@
     overflow: hidden;
 }
 
-/* 헤더 */
 .und-header {
     flex-shrink: 0;
-    background: rgba(28, 28, 35, 0.8);
+    background: rgba(4, 4, 5, 0.8);
     backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
@@ -50,21 +48,18 @@
     color: #e5e7eb;
 }
 
-/* 본문 스크롤 */
 .und-main {
     flex: 1;
     overflow-y: auto;
     padding-bottom: 16px;
 }
 
-/* 배너 이미지 */
 .und-banner {
     width: 100%;
     height: auto;
     display: block;
 }
 
-/* 섹션 컨테이너: 폭 335px */
 .und-sectionbox {
     width: 335px;
     margin: 0 auto;
@@ -75,11 +70,18 @@
     margin-bottom: 24px;
 }
 
+.und-section2 {
+    margin-bottom: 30px;
+    margin-top: -90px;
+    /* 배너 끝에 겹쳐 내려오게 */
+    position: relative;
+    z-index: 10;
+}
+
 .und-section-comment {
     margin-top: 20px;
 }
 
-/* 타이틀/서브타이틀/본문 */
 .und-title {
     font-size: 20px;
     font-weight: 800;
@@ -101,36 +103,33 @@
     margin: 0 0 16px 0;
 }
 
-/* 태그 행 */
 .und-tagrow {
     display: flex;
     gap: 8px;
+    border-radius: 6px;
 }
 
-/* 코드 영역(회색 박스) */
 .und-code {
-    background: #313244;
+    background: #283143;
     color: #cbd5e1;
     padding: 16px;
-    border-radius: 10px;
+    border-radius: 6px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 13px;
     line-height: 1.6;
 }
 
 .und-code-strong {
-    color: #fff;
+    color: #cbd5e1;
     font-weight: 800;
     margin: 8px 0;
 }
 
-/* 구분선 */
 .und-divider {
     border-top: 1px solid rgba(107, 114, 128, 0.5);
     margin: 8px 0;
 }
 
-/* 행 헬퍼 */
 .und-row {
     display: flex;
     align-items: center;
@@ -151,7 +150,6 @@
     color: #9ca3af;
 }
 
-/* 적용 예시 */
 .und-example {
     display: flex;
     align-items: flex-start;
