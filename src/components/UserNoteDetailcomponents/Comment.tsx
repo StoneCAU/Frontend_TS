@@ -1,44 +1,108 @@
-
+// Comment.tsx
 import React from 'react';
 import { MoreHorizontalIcon, ThumbsUpIcon, MessageCircleIcon } from '../icons';
 
-interface CommentProps {
-    isBest: boolean;
+export interface CommentProps {
+    isBest?: boolean;
     author: string;
-    time: string;
+    time: string;          // 예: "1일 전"
     content: string;
     likes: number;
     replies: number;
+    avatarUrl?: string;    // 없으면 기본 아이콘/회색원
+    onMoreClick?: () => void;
+    onLikeClick?: () => void;
+    onReplyClick?: () => void;
 }
 
-const Comment: React.FC<CommentProps> = ({ isBest, author, time, content, likes, replies }) => {
+const Comment: React.FC<CommentProps> = ({
+    isBest,
+    author,
+    time,
+    content,
+    likes,
+    replies,
+    avatarUrl,
+    onMoreClick,
+    onLikeClick,
+    onReplyClick,
+}) => {
     return (
-        <div className="flex items-start space-x-3">
-            <div className="w-10 h-10 bg-gray-600 rounded-full flex-shrink-0"></div>
-            <div className="flex-grow">
-                <div className="flex justify-between items-start">
-                    <div>
-                        <div className="flex items-center space-x-2">
-                            {isBest && <span className="bg-[#8A4DFF] text-white text-xs font-bold px-2 py-0.5 rounded">BEST</span>}
-                            <span className="font-semibold text-white">{author}</span>
-                            <span className="text-gray-500 text-sm">· {time}</span>
-                        </div>
-                        <p className="mt-2 text-gray-300 text-[15px]">{content}</p>
-                    </div>
-                    <button className="text-gray-500">
-                        <MoreHorizontalIcon className="w-5 h-5" />
-                    </button>
+        <div className="flex items-start gap-3 py-4">
+            {/* 아바타 */}
+            {avatarUrl ? (
+                <img
+                    src={avatarUrl}
+                    alt={author}
+                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                />
+            ) : (
+                <div className="w-10 h-10 rounded-full bg-[#2D3340] flex items-center justify-center flex-shrink-0">
+                    {/* 기본 사람 아이콘 (SVG) */}
+                    <svg
+                        className="w-6 h-6 text-gray-300"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden
+                    >
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                    </svg>
                 </div>
-                <div className="mt-3 flex items-center space-x-4 text-gray-500">
-                    <button className="flex items-center space-x-2 hover:text-white transition-colors p-2 -ml-2 rounded-md">
-                        <ThumbsUpIcon className="w-5 h-5" />
+            )}
+
+            {/* 본문 */}
+            <div className="flex-1">
+                <div className="flex items-start justify-between gap-2 ml-[10px]">
+                    <div>
+                        <div className="flex items-center gap-2">
+                            {isBest && (
+                                <span className="flex items-center justify-center w-[42px] h-[23px] rounded-[6px] bg-[#8A4DFF] text-[12px] font-bold text-white">
+                                    BEST
+                                </span>
+                            )}
+
+                            <span className="text-[14px] font-semibold text-[#8B90A3] ml-[15px]">{author}</span>
+                            <span className="text-[13px] text-[#8B90A3] ml-[10px]">· {time}</span>
+                        </div>
+
+                        <p className="mt-2 text-[15px] leading-[22px] text-[#D6DAE6]">
+                            {content}
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={onMoreClick}
+                        aria-label="더보기"
+                        className="inline-flex items-center justify-center w-[40px] h-[40px]
+             text-[#FFF] bg-transparent focus:outline-none focus:ring-0 border-0"
+                    >
+                        <MoreHorizontalIcon className="h-[25px] w-[25px] rotate-90" />
+                    </button>
+
+                </div>
+
+                {/* 액션 버튼 */}
+                <div className="mt-3 flex items-center gap-3 ml-[10px]">
+                    <button
+                        type="button"
+                        onClick={onLikeClick}
+                        className="inline-flex items-center gap-2 rounded-[6px] bg-[#2F3440] px-3 py-2 text-[13px] text-[#C9CEDB] hover:bg-[#383E4D] mr-[5px] border-0 focus:outline-none focus:ring-0"
+                    >
+                        <ThumbsUpIcon className="h-[20px] w-[20px] text-[#C9CEDB] mr-[5px]" />
                         <span>{likes}</span>
                     </button>
-                    <button className="flex items-center space-x-2 hover:text-white transition-colors p-2 -ml-2 rounded-md">
-                        <MessageCircleIcon className="w-5 h-5" />
+
+                    <button
+                        type="button"
+                        onClick={onReplyClick}
+                        className="inline-flex items-center gap-2 rounded-[6px] bg-[#2F3440] px-3 py-2 text-[13px] text-[#C9CEDB] hover:bg-[#383E4D] border-0 focus:outline-none focus:ring-0"
+                    >
+                        <MessageCircleIcon className="h-[20px] w-[20px] text-[#C9CEDB] mr-[5px]" />
                         <span>{replies}</span>
                     </button>
                 </div>
+
             </div>
         </div>
     );

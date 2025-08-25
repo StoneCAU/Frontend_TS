@@ -36,6 +36,14 @@
     padding: 4px;
 }
 
+.und-iconbtn1 {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 4px;
+    transform: rotate(90deg);
+}
+
 .und-icon {
     width: 24px;
     height: 24px;
@@ -65,6 +73,10 @@
 
 .und-section {
     margin-bottom: 24px;
+}
+
+.und-section-comment {
+    margin-top: 20px;
 }
 
 /* 타이틀/서브타이틀/본문 */

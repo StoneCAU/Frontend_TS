@@ -13,9 +13,9 @@ import UserNoteDetailFooter from '../../components/UserNoteDetailcomponents/User
 
 const UserNoteDetail: React.FC = () => {
     const comments = [
-        { id: 1, isBest: true, author: '하이브레인인듯', time: '1일 전', content: 'ㅋㅋㅋ ‘헤일 하이드라’ 속삭였더니 바로 태도 바뀌는 거 웃김', likes: 345, replies: 0 },
-        { id: 2, isBest: true, author: '은빛구름', time: '3일 전', content: '감정 바로 풀리고 신뢰하게 되는 거 ㄹㅇ 은근 BL 전개에도 써먹기 좋음ㅋㅋㅋ', likes: 28, replies: 0 },
-        { id: 3, isBest: true, author: '손예림', time: '1일 전', content: '낮은 확률로 어벤져스 튀어나오는 거 왜 이렇게 웃기고 쫄리죠ㅋㅋㅋ 암튼 재밌음', likes: 10, replies: 0 },
+        { id: 1, isBest: true, author: '하이브레인인듯', time: '1일 전', content: 'ㅋㅋㅋ ‘헤일 하이드라’ 속삭였더니 바로 태도 바뀌는 거 웃김', likes: 345, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=1" },
+        { id: 2, isBest: true, author: '은빛구름', time: '3일 전', content: '감정 바로 풀리고 신뢰하게 되는 거 ㄹㅇ 은근 BL 전개에도 써먹기 좋음ㅋㅋㅋ', likes: 28, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=2" },
+        { id: 3, isBest: true, author: '손예림', time: '1일 전', content: '낮은 확률로 어벤져스 튀어나오는 거 왜 이렇게 웃기고 쫄리죠ㅋㅋㅋ 암튼 재밌음', likes: 10, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=3" },
     ];
 
     return (
@@ -27,7 +27,7 @@ const UserNoteDetail: React.FC = () => {
                     <button className="und-iconbtn" aria-label="뒤로가기">
                         <ArrowLeftIcon className="und-icon" />
                     </button>
-                    <button className="und-iconbtn" aria-label="더보기">
+                    <button className="und-iconbtn1" aria-label="더보기">
                         <MoreHorizontalIcon className="und-icon" />
                     </button>
                 </header>
@@ -101,7 +101,7 @@ const UserNoteDetail: React.FC = () => {
                         <div className="und-divider" />
 
                         {/* 댓글 */}
-                        <section className="und-section">
+                        <section className="und-section-comment">
                             <h2 className="und-subtitle">댓글 6</h2>
                             <div className="und-comments">
                                 {comments.map((c) => (
@@ -111,12 +111,10 @@ const UserNoteDetail: React.FC = () => {
                             <button className="und-more">전체 보기</button>
                         </section>
 
-                        <div className="und-divider" />
-
                         {/* 함께 쓰인 카드 */}
                         <section className="und-section">
                             <RelatedCard
-                                imageUrl="https://picsum.photos/seed/avengers/400/300"
+                                imageUrl="https://picsum.photos/seed/avengers/400/300"//바뀌었음
                                 title="어벤져스 세계관"
                                 description="우리가 알고 있던 세계가 쥬라기 월드로 변합니다. 벤..."
                                 authorHandle="@hahahoho"

@@ -11,7 +11,7 @@ interface RelatedCardProps {
 const RelatedCard: React.FC<RelatedCardProps> = ({ title, description, authorHandle }) => {
     return (
         <div>
-            <h2 className="text-[19px] font-semibold text-white mb-4">
+            <h2 className="text-[19px] font-semibold text-white mt-[45px]">
                 이 유저노트와 같이 쓰였어요
             </h2>
 
