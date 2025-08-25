@@ -9,7 +9,7 @@ const UserNoteWrite: React.FC = () => {
     const [body, setBody] = useState("");
 
     return (
-        <div className="min-h-screen bg-[#141924] flex items-center justify-center">
+        <div className="min-h-screen bg-[#FFF] flex items-center justify-center">
             <div className="w-[375px] h-[896px] bg-[#141924] text-gray-200 flex flex-col overflow-hidden">
 
                 <header className="flex-shrink-0 h-[34px] mt-[25px] flex items-center px-[20.5px]">

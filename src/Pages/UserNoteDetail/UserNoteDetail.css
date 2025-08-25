@@ -1,7 +1,7 @@
 /* 바깥: 화면 중앙 정렬 배경 */
 .und-root {
     min-height: 100vh;
-    background: #0F1014;
+    background: #FFF;
     display: flex;
     align-items: center;
     justify-content: center;

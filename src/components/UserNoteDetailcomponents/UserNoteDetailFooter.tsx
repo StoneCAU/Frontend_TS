@@ -6,7 +6,7 @@ interface Props { bookmarkCount: number; }
 
 const UserNoteDetailFooter: React.FC<Props> = ({ bookmarkCount }) => {
     return (
-        <footer className="h-[68px] flex-shrink-0 bg-[#141924]">
+        <footer className="h-[79px] flex-shrink-0 bg-[#141924]">
             <div className="w-[355px] mx-auto py-4 flex items-center gap-4">
                 <button className="mt-[13px] flex flex-col items-center hover:text-white rounded-[12px] bg-[#222A39] border border-[#222A39]">
                     <BookmarkIcon className="w-[50px] h-[32px] text-[#FFF]" />
