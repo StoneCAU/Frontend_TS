@@ -115,7 +115,7 @@ const UserNoteDetail: React.FC = () => {
                     </button>
                 </header>
 
-                <main className="und-main">
+                <main className="und-main no-scrollbar">
                     <div className="relative">
                         <img
                             src={hidra}
