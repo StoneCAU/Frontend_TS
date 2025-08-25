@@ -13,9 +13,9 @@ import UserNoteDetailFooter from '../../components/UserNoteDetailcomponents/User
 
 const UserNoteDetail: React.FC = () => {
     const comments = [
-        { id: 1, isBest: true, author: '하이브레인인듯', time: '1일 전', content: 'ㅋㅋㅋ ‘헤일 하이드라’ 속삭였더니 바로 태도 바뀌는 거 웃김', likes: 345, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=1" },
+        { id: 1, isBest: true, author: '하이브레인넷', time: '1일 전', content: 'ㅋㅋㅋ ‘헤일 하이드라’ 속삭였더니 바로 태도 바뀌는 거 웃김', likes: 345, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=1" },
         { id: 2, isBest: true, author: '은빛구름', time: '3일 전', content: '감정 바로 풀리고 신뢰하게 되는 거 ㄹㅇ 은근 BL 전개에도 써먹기 좋음ㅋㅋㅋ', likes: 28, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=2" },
-        { id: 3, isBest: true, author: '손예림', time: '1일 전', content: '낮은 확률로 어벤져스 튀어나오는 거 왜 이렇게 웃기고 쫄리죠ㅋㅋㅋ 암튼 재밌음', likes: 10, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=3" },
+        { id: 3, isBest: true, author: '순애킹', time: '1일 전', content: '낮은 확률로 어벤져스 튀어나오는 거 왜 이렇게 웃기고 쫄리죠ㅋㅋㅋ 암튼 재밌음', likes: 10, replies: 0, avatarUrl: "https://i.pravatar.cc/40?img=3" },
     ];
 
     return (
@@ -73,15 +73,13 @@ const UserNoteDetail: React.FC = () => {
                             </div>
                         </section>
 
-                        <div className="und-divider" />
-
                         {/* 적용 예시 */}
                         <section className="und-section">
                             <div className="und-row between">
                                 <h2 className="und-subtitle m-0">적용 예시</h2>
                                 <ChevronDownIcon className="und-chevron" />
                             </div>
-
+                            <div className="und-divider" />
                             <div className="und-example">
                                 <div className="und-avatar" />
                                 <div className="und-example-body">
@@ -92,13 +90,13 @@ const UserNoteDetail: React.FC = () => {
                                         </div>
                                         <button className="und-follow">팔로우</button>
                                     </div>
-                                    <p className="und-example-text">남발하면 저처럼 캡틴한테 혼쭐지도..</p>
-                                    <p className="und-date">게시일 2025.08.20</p>
                                 </div>
                             </div>
+                            <p className="und-date">게시일 2025.08.20</p>
                         </section>
 
-                        <div className="und-divider" />
+                        <div className="w-full h-[6px] bg-[#222A39]"></div>
+
 
                         {/* 댓글 */}
                         <section className="und-section-comment">

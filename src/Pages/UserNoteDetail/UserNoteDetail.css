@@ -164,14 +164,16 @@
     background: #64748b;
     border-radius: 9999px;
     flex-shrink: 0;
+    margin-top: 10px;
 }
 
 .und-example-body {
     flex: 1;
+    margin-top: 10px;
 }
 
 .und-author {
-    font-weight: 700;
+    font-weight: normal;
     color: #fff;
     margin: 0;
 }
@@ -184,22 +186,16 @@
 
 .und-follow {
     border: none;
-    background: #8A4DFF;
+    background: #6F4ACD;
     color: #fff;
-    font-weight: 700;
-    border-radius: 9999px;
+    font-weight: normal;
+    border-radius: 6px;
     padding: 6px 12px;
     cursor: pointer;
 }
 
-.und-example-text {
-    margin: 8px 0 0 0;
-    color: #d1d5db;
-    font-size: 15px;
-}
-
 .und-date {
-    margin: 6px 0 0 0;
+    margin: 15px 0 0 10px;
     font-size: 12px;
     color: #6b7280;
 }
