@@ -89,7 +89,7 @@
 
 .und-subtitle {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: normal;
     color: #fff;
     margin: 0 0 12px 0;
 }
@@ -222,4 +222,32 @@
 
 .und-more:hover {
     background: #1f2937;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.cursor-grab {
+    cursor: grab;
+}
+
+.grabbing {
+    cursor: grabbing;
+}
+
+.und-chevron-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background: transparent;
+    color: #8B90A3;
 }
