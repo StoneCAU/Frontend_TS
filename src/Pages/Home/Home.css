@@ -555,3 +555,30 @@
     font-size: 13px;
     color: white;
 }
+
+/* ===== 임시 로그인 버튼 ===== */
+.login-btn {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);  /* 중앙 정렬 */
+    background-color: #fee500;
+    color: #3c1e1e;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+    background-color: #fdd835;
+    transform: translateX(-50%) translateY(-1px);  /* hover 시에도 중앙 유지 */
+}
+
+.section.title {
+    position: relative;
+}
