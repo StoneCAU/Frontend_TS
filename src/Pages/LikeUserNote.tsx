@@ -85,7 +85,7 @@ const LikeUserNote: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#FFF] flex items-center justify-center">
             <div className="w-[375px] h-[896px] bg-[#141924] text-gray-200 flex flex-col overflow-hidden">
-                {/* 헤더 */}
+
                 <header className="flex-shrink-0 h-[34px] mt-[30px] flex items-center px-[20.5px]">
                     <button className="bg-[#141924] p-2 ml-2 border-none" aria-label="뒤로가기">
                         <ArrowLeftIcon className="w-[20px] h-[20px] text-[#FFF]" />

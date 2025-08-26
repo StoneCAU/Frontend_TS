@@ -7,15 +7,14 @@ export interface PersonaOption {
 
 interface PersonaDropdownProps {
     id?: string;
-    value: string;                            // 선택된 id 또는 직접입력 텍스트
-    onChange: (idOrText: string) => void;     // 선택/입력 변경 콜백
+    value: string;
+    onChange: (idOrText: string) => void;
     options: PersonaOption[];
     placeholder?: string;
 
-    // 직접입력 제어
-    customId?: string;                        // 기본값: 'custom'
-    customValue?: string;                     // 입력 중 텍스트 (상위 상태)
-    onCustomChange?: (text: string) => void;  // 입력 변경 콜백
+    customId?: string;
+    customValue?: string;
+    onCustomChange?: (text: string) => void;
 }
 
 const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
@@ -29,16 +28,14 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
     onCustomChange,
 }) => {
     const [open, setOpen] = useState(false);
-    const [isEditing, setIsEditing] = useState(false); // 트리거 → 입력 모드
+    const [isEditing, setIsEditing] = useState(false);
     const [draft, setDraft] = useState<string>("");
     const wrapRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // 현재 value가 옵션 id인지 확인 (맞으면 label 표시, 아니면 자유 텍스트로 간주)
     const selected = options.find((o) => o.id === value) || null;
     const isFreeText = !selected && value.length > 0;
 
-    // 바깥 클릭 → 닫기/확정
     useEffect(() => {
         const onDocClick = (e: MouseEvent) => {
             if (!wrapRef.current) return;
@@ -49,10 +46,8 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
         };
         document.addEventListener("mousedown", onDocClick);
         return () => document.removeEventListener("mousedown", onDocClick);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing, draft, customValue, value]);
 
-    // 입력모드 진입 시 포커스
     useEffect(() => {
         if (isEditing) {
             const t = setTimeout(() => inputRef.current?.focus(), 0);
@@ -71,13 +66,12 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
 
     const handleSelect = (nextId: string) => {
         if (nextId === customId) {
-            // 직접입력 모드로 전환
+
             setOpen(false);
             setIsEditing(true);
-            setDraft(""); // 새 입력
+            setDraft("");
             return;
         }
-        // 일반 옵션 선택
         onChange(nextId);
         setOpen(false);
         setIsEditing(false);
@@ -94,10 +88,9 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
     const commit = () => {
         const text = (draft ?? customValue ?? "").trim();
         if (text) {
-            onChange(text); // 자유 텍스트 확정
-            onCustomChange?.(text); // 상위에도 반영(선택)
+            onChange(text);
+            onCustomChange?.(text);
         } else {
-            // 빈 값이면 선택 초기화
             onChange("");
             onCustomChange?.("");
         }
@@ -106,7 +99,6 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
 
     const cancel = () => {
         setIsEditing(false);
-        // 값이 아예 없거나 'custom' 상태만 유지 중이면 초기화
         if (!value || value === customId) {
             onChange("");
         }
@@ -120,7 +112,6 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
 
     return (
         <div ref={wrapRef} className="cs-dd">
-            {/* 트리거: 기본/자유텍스트/선택된 레이블 */}
             {!isEditing ? (
                 <button
                     id={id}
@@ -137,7 +128,6 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
                     <span className="cs-dd-caret" aria-hidden>▾</span>
                 </button>
             ) : (
-                // 입력 모드: 같은 트리거 박스 안에 input 표시 (디자인 유지)
                 <div className="cs-dd-trigger is-open" aria-expanded={true}>
                     <input
                         ref={inputRef}
@@ -161,7 +151,7 @@ const PersonaDropdown: React.FC<PersonaDropdownProps> = ({
             {open && !isEditing && (
                 <div className="cs-dd-menu" role="listbox" aria-labelledby={id}>
                     {options.map((opt) => {
-                        const active = opt.id === value; // value가 옵션 id면 active
+                        const active = opt.id === value;
                         return (
                             <div
                                 key={opt.id}

@@ -10,14 +10,12 @@ interface BottomSheetProps {
 const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose, title, children }) => {
     const sheetRef = useRef<HTMLDivElement>(null);
 
-    // ESC 닫기
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
         if (open) document.addEventListener('keydown', onKey);
         return () => document.removeEventListener('keydown', onKey);
     }, [open, onClose]);
 
-    // 바깥(오버레이) 클릭 닫기
     const onOverlayClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
         if (e.target === e.currentTarget) onClose();
     };

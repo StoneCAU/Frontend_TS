@@ -78,9 +78,9 @@ export const MoreVerticalIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({
 }) => (
     <svg
         viewBox="0 0 24 24"
-        className={className}                 // ✅ 부모에서 준 className이 실제 svg에 적용
-        fill="currentColor"                   // ✅ fill이 상위 color(text-*)를 따름
-        stroke="currentColor"                 // ✅ stroke도 상위 color를 따르게 (필요시)
+        className={className}
+        fill="currentColor"
+        stroke="currentColor"
         xmlns="http://www.w3.org/2000/svg"
         {...props}
     >

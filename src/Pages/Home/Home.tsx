@@ -69,7 +69,7 @@ const HOME_NOTES: CardItem[] = [
 const Home: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const [showSearch, setShowSearch] = useState<boolean>(false);
-    const [activeCharacterId, setActiveCharacterId] = useState<string | null>(null); // 👈 클릭된 아바타
+    const [activeCharacterId, setActiveCharacterId] = useState<string | null>(null);
     const searchRef = useRef<HTMLDivElement>(null);
 
     const buttons: string[] = ['캐릭터 챗', '웹 소설', '유저 노트'];
@@ -78,7 +78,6 @@ const Home: React.FC = () => {
         setActiveIndex((prev) => (prev === index ? null : index));
     };
 
-    // 외부 클릭 감지 → 검색창 닫기
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -91,7 +90,6 @@ const Home: React.FC = () => {
 
     const selectedCharacter = TOP_USERS.find(u => u.id === activeCharacterId) || null;
 
-    // [소설] 전용 카드
     const renderNovelCard = (item: CardItem) => (
         <div className="novel-card" key={item.id}>
             <img src={item.image} alt={item.title} className="novel-card-image" />
@@ -103,7 +101,6 @@ const Home: React.FC = () => {
         </div>
     );
 
-    // [유저노트] 전용 카드
     const renderNoteCard = (item: CardItem) => (
         <div className="note-card" key={item.id}>
             <img src={item.image} alt={item.title} className="note-card-image" />
@@ -150,7 +147,6 @@ const Home: React.FC = () => {
         default:
             content = (
                 <div>
-                    {/* 배너 */}
                     <section className="section banner">
                         <img
                             src="https://picsum.photos/seed/banner1/400/200"
@@ -164,7 +160,6 @@ const Home: React.FC = () => {
                         </div>
                     </section>
 
-                    {/* 위프 유저들이 가장 좋아한 캐릭터 */}
                     <section className="section">
                         <h2 className="section-title">위프 유저들이 가장 좋아한 캐릭터</h2>
 
@@ -199,7 +194,6 @@ const Home: React.FC = () => {
                     </section>
 
 
-                    {/* [소설] 가로 스크롤 */}
                     <section className="section">
                         <div className="title-row">
                             <h2 className="section-title accent">#공공</h2>
@@ -210,7 +204,6 @@ const Home: React.FC = () => {
                         </div>
                     </section>
 
-                    {/* [유저노트] 가로 스크롤 */}
                     <section className="section">
                         <h2 className="section-title">새로운 세계로 떠나는 유저노트</h2>
                         <div className="hscroll-notes">

@@ -1,15 +1,14 @@
-// Comment.tsx
 import React from 'react';
 import { MoreHorizontalIcon, ThumbsUpIcon, MessageCircleIcon } from '../icons';
 
 export interface CommentProps {
     isBest?: boolean;
     author: string;
-    time: string;          // 예: "1일 전"
+    time: string;
     content: string;
     likes: number;
     replies: number;
-    avatarUrl?: string;    // 없으면 기본 아이콘/회색원
+    avatarUrl?: string;
     onMoreClick?: () => void;
     onLikeClick?: () => void;
     onReplyClick?: () => void;
@@ -29,7 +28,7 @@ const Comment: React.FC<CommentProps> = ({
 }) => {
     return (
         <div className="flex items-start gap-3 py-4">
-            {/* 아바타 */}
+
             {avatarUrl ? (
                 <img
                     src={avatarUrl}
@@ -38,7 +37,7 @@ const Comment: React.FC<CommentProps> = ({
                 />
             ) : (
                 <div className="w-10 h-10 rounded-full bg-[#2D3340] flex items-center justify-center flex-shrink-0">
-                    {/* 기본 사람 아이콘 (SVG) */}
+
                     <svg
                         className="w-6 h-6 text-gray-300"
                         fill="currentColor"
@@ -50,7 +49,6 @@ const Comment: React.FC<CommentProps> = ({
                 </div>
             )}
 
-            {/* 본문 */}
             <div className="flex-1">
                 <div className="flex items-start justify-between gap-2 ml-[10px]">
                     <div>
@@ -82,7 +80,6 @@ const Comment: React.FC<CommentProps> = ({
 
                 </div>
 
-                {/* 액션 버튼 */}
                 <div className="mt-3 flex items-center gap-3 ml-[10px]">
                     <button
                         type="button"
