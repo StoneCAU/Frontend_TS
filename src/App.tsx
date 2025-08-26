@@ -6,6 +6,7 @@ import ChatSetting from './Pages/ChatSetting/ChatSetting';
 import UserNoteDetail from './Pages/UserNoteDetail/UserNoteDetail';
 import UserNoteWrite from './Pages/UserNoteWrite';
 import LikeUserNote from './Pages/LikeUserNote';
+import ChattingUserNote from './Pages/ChattingUserNote';
 
 const App: React.FC = () => {
   return (
@@ -17,7 +18,7 @@ const App: React.FC = () => {
         <Route path="/UserNoteDetail" element={<UserNoteDetail />} />
         <Route path="/UserNoteWrite" element={<UserNoteWrite />} />
         <Route path="/LikeUserNote" element={<LikeUserNote />} />
-
+        <Route path="/ChattingUserNote" element={<ChattingUserNote />} />
       </Routes>
     </Router>
   );
