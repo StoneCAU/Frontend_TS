@@ -2,8 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import './Home.css';
 import { SearchIcon } from '../../components/icons';
 import NavBar from '../../components/NavBar';
+import type { ApiResponse } from '../../types/api';
+import type { Character, Story, UserNote } from '../../types';
 
 type CardItem = { id: string; image: string; title: string; description: string; author: string };
+
 type SimpleUser = {
     id: string;
     image: string;
@@ -12,72 +15,185 @@ type SimpleUser = {
     tags: string[];
 };
 
-const TOP_USERS: SimpleUser[] = [
-    {
-        id: 'u1',
-        image: 'https://picsum.photos/seed/u1/80/80',
-        name: '백도하',
-        message: '그러니까, 그 사람 얼굴 보자마자 마음이 와르르 무너졌다고?',
-        tags: ['#짝사랑', '#소꿉친구', '#현대로맨스'],
-    },
-    {
-        id: 'u2',
-        image: 'https://picsum.photos/seed/u2/80/80',
-        name: '하도혁',
-        message: '오늘도 너만 보면 심장이 먼저 반응해. 왜일까?',
-        tags: ['#캠퍼스', '#츤데레', '#로맨스'],
-    },
-    {
-        id: 'u3',
-        image: 'https://picsum.photos/seed/u3/80/80',
-        name: '류겸',
-        message: '네 플레이리스트, 내가 좀 채워도 되지?',
-        tags: ['#뮤지션', '#힐링', '#느스름매력'],
-    },
-    {
-        id: 'u4',
-        image: 'https://picsum.photos/seed/u3/80/80',
-        name: '케로로',
-        message: '내가 지구를 정복하러 왔노라',
-        tags: ['#개구리', '#중사', '#느스름매력'],
-    },
-    {
-        id: 'u5',
-        image: 'https://picsum.photos/seed/u3/80/80',
-        name: '고죠 사토루',
-        message: '료이키 텐카이~! 무량공처!',
-        tags: ['#뮤지션', '#차도남', '#느스름매력'],
-    },
-];
+// API 데이터를 SimpleUser로 변환
+const transformCharacterToUser = (characters: Character[]): SimpleUser[] => {
+    return characters.map((char) => ({
+        id: char.characterId.toString(),
+        image: char.characterImageUrl,
+        name: char.name,
+        message: extractMessage(char.description),
+        tags: char.tags.length > 0 ? char.tags : ['#캐릭터챗', '#로맨스']
+    }));
+};
 
-const HOME_NOVELS: CardItem[] = [
-    { id: 'n1', image: 'https://picsum.photos/seed/n1/400/300', title: '검의 노래', description: '운명을 거스르는 소년의 일대기', author: '란' },
-    { id: 'n2', image: 'https://picsum.photos/seed/n2/400/300', title: '달의 주인', description: '폐허 위의 왕국', author: '유화' },
-    { id: 'n3', image: 'https://picsum.photos/seed/n3/400/300', title: '바람의 길', description: '길 위에서 만난 동료들', author: '고래' },
-    { id: 'n4', image: 'https://picsum.photos/seed/n4/400/300', title: '유령 작가', description: '사라진 문장을 찾아서', author: '미나' },
-    { id: 'n5', image: 'https://picsum.photos/seed/m4/400/300', title: '북 노트', description: '올해의 문장들', author: '진' },
-];
+// Story를 CardItem으로 변환
+const transformStoryToCard = (stories: Story[]): CardItem[] => {
+    return stories.map((story) => ({
+        id: story.storyId.toString(),
+        image: story.storyImageUrl,
+        title: story.title,
+        description: extractDescription(story.description),
+        author: story.author
+    }));
+};
 
-const HOME_NOTES: CardItem[] = [
-    { id: 'm1', image: 'https://picsum.photos/seed/m1/400/300', title: '정글 탐험기', description: '첫 캠핑 준비 리스트', author: '파인' },
-    { id: 'm2', image: 'https://picsum.photos/seed/m2/400/300', title: 'AI 실험노트', description: '프롬프트 실험 기록', author: '솔' },
-    { id: 'm3', image: 'https://picsum.photos/seed/m3/400/300', title: '러닝 로그', description: '10K 페이스 관리', author: '민' },
-    { id: 'm4', image: 'https://picsum.photos/seed/m4/400/300', title: '북 노트', description: '올해의 문장들', author: '진' },
-    { id: 'm5', image: 'https://picsum.photos/seed/m4/400/300', title: '북 노트', description: '올해의 문장들', author: '진' },
-];
+// UserNote를 CardItem으로 변환
+const transformUserNoteToCard = (userNotes: UserNote[]): CardItem[] => {
+    return userNotes.map((note) => ({
+        id: note.userNoteId.toString(),
+        image: note.userNoteImageUrl || 'https://picsum.photos/seed/default/400/300',
+        title: note.title,
+        description: extractDescription(note.description),
+        author: note.author
+    }));
+};
+
+// description에서 메시지 추출
+const extractMessage = (description: string): string => {
+    // 따옴표 안의 내용 추출
+    const quoteMatch = description.match(/"([^"]+)"/);
+    if (quoteMatch) {
+        return quoteMatch[1];
+    }
+    
+    // 첫 번째 줄에서 적절히 자르기
+    const firstLine = description.split('\n')[0];
+    return firstLine.length > 50 ? firstLine.substring(0, 47) + '...' : firstLine;
+};
+
+// description 추출 (짧게)
+const extractDescription = (description: string): string => {
+    // # 제목이나 특수 기호로 시작하는 줄 제외
+    const lines = description.split('\n').filter(line => 
+        line.trim() && 
+        !line.startsWith('#') && 
+        !line.startsWith('-') &&
+        !line.startsWith('*') &&
+        line.length > 10
+    );
+    
+    const firstContent = lines[0] || description.split('\n')[0];
+    return firstContent.length > 100 ? firstContent.substring(0, 97) + '...' : firstContent;
+};
+
+// 캐릭터 API 호출
+const fetchCharacters = async (): Promise<SimpleUser[]> => {
+    try {
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+        if (!API_BASE_URL) {
+            throw new Error('VITE_API_BASE_URL 환경변수가 설정되지 않았습니다');
+        }
+        
+        console.log('캐릭터 API 호출 시작');
+        
+        const response = await fetch(`${API_BASE_URL}/character/all`);
+        if (!response.ok) throw new Error('캐릭터 API 호출 실패');
+        
+        const data: ApiResponse<Character[]> = await response.json();
+        
+        if (data.isSuccess) {
+            return transformCharacterToUser(data.result);
+        } else {
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        console.error('캐릭터 데이터 로딩 실패:', error);
+        return [];
+    }
+};
+
+// 소설 API 호출
+const fetchStories = async (): Promise<CardItem[]> => {
+    try {
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+        if (!API_BASE_URL) {
+            throw new Error('VITE_API_BASE_URL 환경변수가 설정되지 않았습니다');
+        }
+        
+        console.log('소설 API 호출 시작');
+        
+        const response = await fetch(`${API_BASE_URL}/story/all`);
+        if (!response.ok) throw new Error('소설 API 호출 실패');
+        
+        const data: ApiResponse<Story[]> = await response.json();
+        
+        if (data.isSuccess) {
+            return transformStoryToCard(data.result);
+        } else {
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        console.error('소설 데이터 로딩 실패:', error);
+        return [];
+    }
+};
+
+// 유저노트 API 호출
+const fetchUserNotes = async (): Promise<CardItem[]> => {
+    try {
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+        if (!API_BASE_URL) {
+            throw new Error('VITE_API_BASE_URL 환경변수가 설정되지 않았습니다');
+        }
+        
+        console.log('유저노트 API 호출 시작');
+        
+        const response = await fetch(`${API_BASE_URL}/usernote/all`);
+        if (!response.ok) throw new Error('유저노트 API 호출 실패');
+        
+        const data: ApiResponse<UserNote[]> = await response.json();
+        
+        if (data.isSuccess) {
+            return transformUserNoteToCard(data.result);
+        } else {
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        console.error('유저노트 데이터 로딩 실패:', error);
+        return [];
+    }
+};
 
 const Home: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const [showSearch, setShowSearch] = useState<boolean>(false);
     const [activeCharacterId, setActiveCharacterId] = useState<string | null>(null);
+    const [topUsers, setTopUsers] = useState<SimpleUser[]>([]);
+    const [novels, setNovels] = useState<CardItem[]>([]);
+    const [userNotes, setUserNotes] = useState<CardItem[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const searchRef = useRef<HTMLDivElement>(null);
 
-    const buttons: string[] = ['캐릭터 챗', '웹 소설', '유저 노트'];
+    // 컴포넌트 마운트 시 모든 API 호출
+    useEffect(() => {
+        const loadData = async () => {
+            setIsLoading(true);
+            
+            try {
+                const [charactersData, novelsData, userNotesData] = await Promise.all([
+                    fetchCharacters(),
+                    fetchStories(),
+                    fetchUserNotes()
+                ]);
+                
+                setTopUsers(charactersData);
+                setNovels(novelsData);
+                setUserNotes(userNotesData);
+            } catch (error) {
+                console.error('데이터 로딩 중 오류:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        
+        loadData();
+    }, []);
 
     const handleClick = (index: number): void => {
         setActiveIndex((prev) => (prev === index ? null : index));
     };
 
+    // 외부 클릭 감지 → 검색창 닫기
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -88,8 +204,9 @@ const Home: React.FC = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [showSearch]);
 
-    const selectedCharacter = TOP_USERS.find(u => u.id === activeCharacterId) || null;
+    const selectedCharacter = topUsers.find(u => u.id === activeCharacterId) || null;
 
+    // [소설] 전용 카드
     const renderNovelCard = (item: CardItem) => (
         <div className="novel-card" key={item.id}>
             <img src={item.image} alt={item.title} className="novel-card-image" />
@@ -101,6 +218,7 @@ const Home: React.FC = () => {
         </div>
     );
 
+    // [유저노트] 전용 카드
     const renderNoteCard = (item: CardItem) => (
         <div className="note-card" key={item.id}>
             <img src={item.image} alt={item.title} className="note-card-image" />
@@ -147,37 +265,45 @@ const Home: React.FC = () => {
         default:
             content = (
                 <div>
+                    {/* 배너 */}
                     <section className="section banner">
                         <img
-                            src="https://picsum.photos/seed/banner1/400/200"
+                            src="https://beizfkcdgqkvhqcqvtwk.supabase.co/storage/v1/object/public/character-thumbnails/c0f8aff0-0b17-4551-b1c4-d4539d067239/1753700613259-mw7jhzoxl7.png"
                             alt="Banner"
                             className="banner-image"
                         />
                         <div className="banner-overlay">
-                            <p className="banner-hashtag">#계략계</p>
-                            <h2 className="banner-title">서도겸</h2>
-                            <p className="banner-desc">안하무인, 막무가내. 목숨 걸고 사는 학교의 유...</p>
+                            <p className="banner-hashtag">#축구공</p>
+                            <h2 className="banner-title">서휼 (徐휼)</h2>
+                            <p className="banner-desc">그가 내미는 달콤한 충심의 이면에는, 당신을 완벽..</p>
                         </div>
                     </section>
 
+                    {/* 위프 유저들이 가장 좋아한 캐릭터 */}
                     <section className="section">
                         <h2 className="section-title">위프 유저들이 가장 좋아한 캐릭터</h2>
 
-                        <div className="hscroll">
-                            {TOP_USERS.map((u) => (
-                                <div
-                                    key={u.id}
-                                    className={`top-user ${activeCharacterId === u.id ? 'active' : ''}`}
-                                    role="button"
-                                    tabIndex={0}
-                                    onClick={() => setActiveCharacterId(prev => (prev === u.id ? null : u.id))}
-                                    onKeyDown={(e) => (e.key === 'Enter' ? setActiveCharacterId(prev => (prev === u.id ? null : u.id)) : null)}
-                                >
-                                    <img src={u.image} alt={u.name} className="avatar" />
-                                    <span className="avatar-name">{u.name}</span>
-                                </div>
-                            ))}
-                        </div>
+                        {isLoading ? (
+                            <div className="loading-container">로딩 중...</div>
+                        ) : topUsers.length === 0 ? (
+                            <div className="empty-container">캐릭터 데이터를 불러올 수 없습니다.</div>
+                        ) : (
+                            <div className="hscroll">
+                                {topUsers.map((u) => (
+                                    <div
+                                        key={u.id}
+                                        className={`top-user ${activeCharacterId === u.id ? 'active' : ''}`}
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => setActiveCharacterId(prev => (prev === u.id ? null : u.id))}
+                                        onKeyDown={(e) => (e.key === 'Enter' ? setActiveCharacterId(prev => (prev === u.id ? null : u.id)) : null)}
+                                    >
+                                        <img src={u.image} alt={u.name} className="avatar" />
+                                        <span className="avatar-name">{u.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         {selectedCharacter && (
                             <div className="character-panel">
@@ -193,22 +319,37 @@ const Home: React.FC = () => {
                         )}
                     </section>
 
-
+                    {/* [소설] 가로 스크롤 */}
                     <section className="section">
                         <div className="title-row">
                             <h2 className="section-title accent">#공공</h2>
                             <h2 className="section-title accent1">좋아하는 사람들이 많이 본 소설</h2>
                         </div>
-                        <div className="hscroll-novels">
-                            {HOME_NOVELS.slice(0, 5).map(renderNovelCard)}
-                        </div>
+                        
+                        {isLoading ? (
+                            <div className="loading-container">소설 로딩 중...</div>
+                        ) : novels.length === 0 ? (
+                            <div className="empty-container">소설 데이터를 불러올 수 없습니다.</div>
+                        ) : (
+                            <div className="hscroll-novels">
+                                {novels.slice(0, 5).map(renderNovelCard)}
+                            </div>
+                        )}
                     </section>
 
+                    {/* [유저노트] 가로 스크롤 */}
                     <section className="section">
                         <h2 className="section-title">새로운 세계로 떠나는 유저노트</h2>
-                        <div className="hscroll-notes">
-                            {HOME_NOTES.slice(0, 5).map(renderNoteCard)}
-                        </div>
+                        
+                        {isLoading ? (
+                            <div className="loading-container">유저노트 로딩 중...</div>
+                        ) : userNotes.length === 0 ? (
+                            <div className="empty-container">유저노트 데이터를 불러올 수 없습니다.</div>
+                        ) : (
+                            <div className="hscroll-notes">
+                                {userNotes.slice(0, 5).map(renderNoteCard)}
+                            </div>
+                        )}
                     </section>
                 </div>
             );
