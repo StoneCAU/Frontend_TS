@@ -72,7 +72,7 @@ const UserNoteWrite: React.FC = () => {
                 <footer className="flex-shrink-0 px-4 pb-4">
                     <button
                         type="button"
-                        className="w-full h-[52px] rounded-[12px] bg-[#6F4ACD] text-[#FFF] font-semibold text-[16px]"
+                        className="w-full h-[52px] mb-[8px] rounded-[12px] bg-[#6F4ACD] text-[#FFF] font-semibold text-[16px]"
                     >
                         저장하기
                     </button>

@@ -1,4 +1,3 @@
-// UserNoteDetailFooter.tsx (Tailwind 버전)
 import React from "react";
 import { BookmarkIcon } from "../icons";
 
