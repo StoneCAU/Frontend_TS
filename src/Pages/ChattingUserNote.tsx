@@ -56,33 +56,33 @@ const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 const KebabButton: React.FC = () => (
   <button
     aria-label="더보기"
-    className="absolute top-3 right-3 flex items-center justify-center w-8 h-8 rounded-md text-gray-300 hover:text-white hover:bg-white/5"
+    className="absolute top-3 mt-[6px] ml-[270px] flex items-center justify-center bg-[rgba(217,200,239,0.03)] border-none"
   >
-    <MoreVerticalIcon className="w-5 h-5" />
+    <MoreVerticalIcon className="w-[20px] h-[20px] text-[#FFF]" />
   </button>
 );
 
 const MyNoteCard: React.FC<{ note: MyNote }> = ({ note }) => (
-  <div className="relative w-[335px] h-[124px] bg-[rgba(217,200,239,0.03)] rounded-[12px] p-4 shadow-lg ">
+  <div className="relative w-full box-border h-[124px] bg-[rgba(217,200,239,0.03)] rounded-[12px] px-[25px] shadow-lg">
     <KebabButton />
     <h3 className="text-[#FFF] font-normal text-[15px] mb-1">{note.title}</h3>
     <p className="text-[13px] text-[rgba(223,225,234,0.61)] leading-snug line-clamp-2">
       {note.description}
     </p>
-    <div className="mt-3 inline-flex items-center rounded-full bg-[#1F2735] text-[#9CA3AF] text-[12px] px-3 py-1">
+    <div className="mt-3 inline-flex items-center rounded-[6px]] bg-[rgba(69,74,85,0.32)] text-[#9CA3AF] text-[12px] px-3 py-1">
       {note.date}
     </div>
   </div>
 );
 
 const LikedNoteCard: React.FC<{ note: LikedNote }> = ({ note }) => (
-  <div className="relative w-[335px] h-[124px] bg-[rgba(217,200,239,0.03)] rounded-[12px] p-4 shadow-lg">
+  <div className="relative w-full box-border h-[124px] bg-[rgba(217,200,239,0.03)] rounded-[12px] px-[25px] shadow-lg">
     <KebabButton />
     <h3 className="text-[#FFF] font-normal text-[15px] mb-1">{note.title}</h3>
     <p className="text-[13px] text-[rgba(223,225,234,0.61)] leading-snug line-clamp-2">
       {note.description}
     </p>
-    <div className="mt-3 inline-flex items-center rounded-[8px] bg-[#222A39] text-[#9CA3AF] text-[12px] px-3 py-1">
+    <div className="mt-3 inline-flex items-center rounded-[6px] bg-[rgba(69,74,85,0.32)] text-[#9CA3AF] text-[12px] px-3 py-1">
       {note.author}
     </div>
   </div>
@@ -102,10 +102,10 @@ const ChattingUserNote: React.FC = () => {
         </header>
 
         {/* 본문 스크롤 영역 */}
-        <main className="flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="w-[335px] mx-auto pt-4 pb-24 space-y-6">
             {/* 내가 만든 유저노트 */}
-            <section>
+            <section className="mt-[25px]">
               <SectionTitle>내가 만든 유저노트</SectionTitle>
               <div className="space-y-3">
                 {MY_NOTES.map(n => (
@@ -115,7 +115,7 @@ const ChattingUserNote: React.FC = () => {
             </section>
 
             {/* 좋아요한 유저노트 */}
-            <section>
+            <section className="mt-[45px]">
               <SectionTitle>좋아한 유저노트</SectionTitle>
               <div className="space-y-3">
                 {LIKED_NOTES.map(n => (

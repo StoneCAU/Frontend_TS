@@ -72,20 +72,22 @@ export const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <X {...props} />
 );
 
-export const MoreVerticalIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+export const MoreVerticalIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({
+    className,
+    ...props
+}) => (
     <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
         viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        {...props}   // 🔥 여기 중요: className 전달됨
+        className={className}                 // ✅ 부모에서 준 className이 실제 svg에 적용
+        fill="currentColor"                   // ✅ fill이 상위 color(text-*)를 따름
+        stroke="currentColor"                 // ✅ stroke도 상위 color를 따르게 (필요시)
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
     >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6.75h.01M12 12h.01M12 17.25h.01"
-        />
+        {/* 예시: 세로 점 3개 */}
+        <circle cx="12" cy="5" r="1.5" />
+        <circle cx="12" cy="12" r="1.5" />
+        <circle cx="12" cy="19" r="1.5" />
     </svg>
 );
 
