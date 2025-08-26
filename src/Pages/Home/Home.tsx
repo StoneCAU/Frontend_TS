@@ -5,6 +5,7 @@ import NavBar from '../../components/NavBar';
 import type { ApiResponse } from '../../types/api';
 import type { Character, Story, UserNote } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 type CardItem = { id: string; image: string; title: string; description: string; author: string };
 
@@ -16,6 +17,7 @@ type SimpleUser = {
   tags: string[];
 };
 
+// API 데이터를 SimpleUser로 변환
 const transformCharacterToUser = (characters: Character[]): SimpleUser[] => {
   return characters.map((char) => ({
     id: char.characterId.toString(),
@@ -26,6 +28,7 @@ const transformCharacterToUser = (characters: Character[]): SimpleUser[] => {
   }));
 };
 
+// Story를 CardItem으로 변환
 const transformStoryToCard = (stories: Story[]): CardItem[] => {
   return stories.map((story) => ({
     id: story.storyId.toString(),
@@ -36,6 +39,7 @@ const transformStoryToCard = (stories: Story[]): CardItem[] => {
   }));
 };
 
+// UserNote를 CardItem으로 변환
 const transformUserNoteToCard = (userNotes: UserNote[]): CardItem[] => {
   return userNotes.map((note) => ({
     id: note.userNoteId.toString(),
@@ -46,6 +50,7 @@ const transformUserNoteToCard = (userNotes: UserNote[]): CardItem[] => {
   }));
 };
 
+// description에서 메시지 추출
 const extractMessage = (description: string): string => {
   const quoteMatch = description.match(/"([^"]+)"/);
   if (quoteMatch) return quoteMatch[1];
@@ -53,6 +58,7 @@ const extractMessage = (description: string): string => {
   return firstLine.length > 50 ? firstLine.substring(0, 47) + '...' : firstLine;
 };
 
+// description 추출 (짧게)
 const extractDescription = (description: string): string => {
   const lines = description
     .split('\n')
@@ -68,41 +74,44 @@ const extractDescription = (description: string): string => {
   return firstContent.length > 100 ? firstContent.substring(0, 97) + '...' : firstContent;
 };
 
+// 캐릭터 API 호출
 const fetchCharacters = async (): Promise<SimpleUser[]> => {
   try {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    const res = await fetch(`${API_BASE_URL}/character/all`, { credentials: 'include' });
-    if (!res.ok) throw new Error('캐릭터 API 호출 실패');
-    const data: ApiResponse<Character[]> = await res.json();
+    const response = await fetch(`${API_BASE_URL}/character/all`);
+    if (!response.ok) throw new Error('캐릭터 API 호출 실패');
+    const data: ApiResponse<Character[]> = await response.json();
     return data.isSuccess ? transformCharacterToUser(data.result) : [];
-  } catch (e) {
-    console.error('캐릭터 데이터 로딩 실패:', e);
+  } catch (error) {
+    console.error('캐릭터 데이터 로딩 실패:', error);
     return [];
   }
 };
 
+// 소설 API 호출
 const fetchStories = async (): Promise<CardItem[]> => {
   try {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    const res = await fetch(`${API_BASE_URL}/story/all`, { credentials: 'include' });
-    if (!res.ok) throw new Error('소설 API 호출 실패');
-    const data: ApiResponse<Story[]> = await res.json();
+    const response = await fetch(`${API_BASE_URL}/story/all`);
+    if (!response.ok) throw new Error('소설 API 호출 실패');
+    const data: ApiResponse<Story[]> = await response.json();
     return data.isSuccess ? transformStoryToCard(data.result) : [];
-  } catch (e) {
-    console.error('소설 데이터 로딩 실패:', e);
+  } catch (error) {
+    console.error('소설 데이터 로딩 실패:', error);
     return [];
   }
 };
 
+// 유저노트 API 호출
 const fetchUserNotes = async (): Promise<CardItem[]> => {
   try {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    const res = await fetch(`${API_BASE_URL}/usernote/all`, { credentials: 'include' });
-    if (!res.ok) throw new Error('유저노트 API 호출 실패');
-    const data: ApiResponse<UserNote[]> = await res.json();
+    const response = await fetch(`${API_BASE_URL}/usernote/all`);
+    if (!response.ok) throw new Error('유저노트 API 호출 실패');
+    const data: ApiResponse<UserNote[]> = await response.json();
     return data.isSuccess ? transformUserNoteToCard(data.result) : [];
-  } catch (e) {
-    console.error('유저노트 데이터 로딩 실패:', e);
+  } catch (error) {
+    console.error('유저노트 데이터 로딩 실패:', error);
     return [];
   }
 };
@@ -118,21 +127,35 @@ const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  const navigate = useNavigate();
+
+  // 로그인 처리
   const handleLogin = async () => {
     try {
       const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-      const res = await fetch(`${API_BASE_URL}/member/kakao/login-url`, {
+      const response = await fetch(`${API_BASE_URL}/member/kakao/login-url`, {
         credentials: 'include',
       });
-      const data: ApiResponse<string> = await res.json();
-      if (data.isSuccess && data.result) {
-        window.location.href = data.result;
+      const data: ApiResponse<string> = await response.json();
+      if (data.isSuccess) {
+        window.location.href = data.result; // 카카오 인증 페이지로 이동
       }
-    } catch (e) {
-      console.error('로그인 처리 실패:', e);
+    } catch (error) {
+      console.error('로그인 처리 실패:', error);
     }
   };
 
+  // 캐릭터 패널 버튼 → ChatSetting으로 이동
+  const goToChatSetting = () => {
+  const selected = topUsers.find((u) => u.id === activeCharacterId);
+  if (!selected) return;
+  // URL: /ChatSetting?characterId=ID  (+ state로 캐릭터 정보도 같이 넘김)
+  navigate(`/ChatSetting?characterId=${encodeURIComponent(selected.id)}`, {
+    state: { character: selected },
+  });
+};
+
+  // 인증 버튼 렌더링
   const renderAuthButton = () => {
     if (isLoggedIn) {
       return (
@@ -162,6 +185,7 @@ const Home: React.FC = () => {
     );
   };
 
+  // 초기 데이터 로드
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
@@ -174,8 +198,8 @@ const Home: React.FC = () => {
         setTopUsers(charactersData);
         setNovels(novelsData);
         setUserNotes(userNotesData);
-      } catch (e) {
-        console.error('데이터 로딩 중 오류:', e);
+      } catch (error) {
+        console.error('데이터 로딩 중 오류:', error);
       } finally {
         setIsLoading(false);
       }
@@ -187,6 +211,7 @@ const Home: React.FC = () => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
 
+  // 외부 클릭 감지 → 검색창 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -199,6 +224,7 @@ const Home: React.FC = () => {
 
   const selectedCharacter = topUsers.find((u) => u.id === activeCharacterId) || null;
 
+  // [소설] 카드
   const renderNovelCard = (item: CardItem) => (
     <div className="novel-card" key={item.id}>
       <img src={item.image} alt={item.title} className="novel-card-image" />
@@ -210,6 +236,7 @@ const Home: React.FC = () => {
     </div>
   );
 
+  // [유저노트] 카드
   const renderNoteCard = (item: CardItem) => (
     <div className="note-card" key={item.id}>
       <img src={item.image} alt={item.title} className="note-card-image" />
@@ -256,6 +283,7 @@ const Home: React.FC = () => {
     default:
       content = (
         <div>
+          {/* 배너 */}
           <section className="section banner">
             <img
               src="https://beizfkcdgqkvhqcqvtwk.supabase.co/storage/v1/object/public/character-thumbnails/c0f8aff0-0b17-4551-b1c4-d4539d067239/1753700613259-mw7jhzoxl7.png"
@@ -269,8 +297,10 @@ const Home: React.FC = () => {
             </div>
           </section>
 
+          {/* 위프 유저들이 가장 좋아한 캐릭터 */}
           <section className="section">
             <h2 className="section-title">위프 유저들이 가장 좋아한 캐릭터</h2>
+
             {isLoading ? (
               <div className="loading-container">로딩 중...</div>
             ) : topUsers.length === 0 ? (
@@ -283,7 +313,9 @@ const Home: React.FC = () => {
                     className={`top-user ${activeCharacterId === u.id ? 'active' : ''}`}
                     role="button"
                     tabIndex={0}
-                    onClick={() => setActiveCharacterId((prev) => (prev === u.id ? null : u.id))}
+                    onClick={() =>
+                      setActiveCharacterId((prev) => (prev === u.id ? null : u.id))
+                    }
                     onKeyDown={(e) =>
                       e.key === 'Enter'
                         ? setActiveCharacterId((prev) => (prev === u.id ? null : u.id))
@@ -296,6 +328,7 @@ const Home: React.FC = () => {
                 ))}
               </div>
             )}
+
             {selectedCharacter && (
               <div className="character-panel">
                 <div className="character-name">{selectedCharacter.name}</div>
@@ -307,16 +340,20 @@ const Home: React.FC = () => {
                     </span>
                   ))}
                 </div>
-                <button className="primary-btn">무슨 일인지 알아보러 가기</button>
+                <button className="primary-btn" onClick={goToChatSetting}>
+                    무슨 일인지 알아보러 가기
+                </button>
               </div>
             )}
           </section>
 
+          {/* [소설] 가로 스크롤 */}
           <section className="section">
             <div className="title-row">
               <h2 className="section-title accent">#공공</h2>
               <h2 className="section-title accent1">좋아하는 사람들이 많이 본 소설</h2>
             </div>
+
             {isLoading ? (
               <div className="loading-container">소설 로딩 중...</div>
             ) : novels.length === 0 ? (
@@ -326,8 +363,10 @@ const Home: React.FC = () => {
             )}
           </section>
 
+          {/* [유저노트] 가로 스크롤 */}
           <section className="section">
             <h2 className="section-title">새로운 세계로 떠나는 유저노트</h2>
+
             {isLoading ? (
               <div className="loading-container">유저노트 로딩 중...</div>
             ) : userNotes.length === 0 ? (
